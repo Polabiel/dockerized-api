@@ -4,7 +4,7 @@ services:
     image: mysql:latest
     environment:
       MYSQL_DATABASE: account
-      MYSQL_USER: root
+      MY_USER: root
       MYSQL_ROOT_PASSWORD: abc123
     ports:
       - 3306:3306
