@@ -1,4 +1,4 @@
-# .gitpod.yml
+# gitpod.yml
 tasks:
   - init: |
       sudo apt-get update --fix-missing
@@ -11,5 +11,6 @@ tasks:
       # Certifique-se de que o Java 21 está no PATH
       export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
       export PATH=$JAVA_HOME/bin:$PATH
+      chmod +x mvnw
       ./mvnw clean install -DskipTests=false
       docker-compose up --build
