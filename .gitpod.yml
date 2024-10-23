@@ -1,9 +1,6 @@
 tasks:
-  - init: |
-      sudo apt-get update
-      sudo apt-get install -y openjdk-21-jdk
+  - init: sudo apt-get install -y openjdk-21-jdk
+    command: |
       sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-21-openjdk-amd64/bin/java 1
-      sudo update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
-  - command: |
-      java -version # Check if Java 21 is being used
-      ./mvnw clean install -DskipTests=false
+      sudo update-alternatives --config java
+      ./mvnw install -DskipTests=false
