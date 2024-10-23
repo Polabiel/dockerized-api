@@ -1,6 +1,10 @@
 tasks:
-  - init: sudo apt-get install -y openjdk-21-jdk
-    command: |
+  - init: |
+      sudo apt-get update --fix-missing
+      sudo apt-get install -y openjdk-21-jdk
       sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-21-openjdk-amd64/bin/java 1
-      sudo update-alternatives --config java
-      ./mvnw install -DskipTests=false
+      echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64' >> ~/.bashrc
+      echo 'export PATH=/usr/lib/jvm/java-21-openjdk-amd64/bin:$PATH' >> ~/.bashrc
+      source ~/.bashrc
+  - command: |
+      ./mvnw clean install -DskipTests=false
