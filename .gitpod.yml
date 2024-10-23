@@ -2,9 +2,13 @@ tasks:
   - init: |
       sudo apt-get update --fix-missing
       sudo apt-get install -y openjdk-21-jdk
-      sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-21-openjdk-amd64/bin/java 1
+      sudo update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
+      # Definindo JAVA_HOME e adicionando ao PATH
       echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64' >> ~/.bashrc
-      echo 'export PATH=/usr/lib/jvm/java-21-openjdk-amd64/bin:$PATH' >> ~/.bashrc
+      echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
       source ~/.bashrc
   - command: |
+      # Certifique-se de que o Java 21 está no PATH
+      export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+      export PATH=$JAVA_HOME/bin:$PATH
       ./mvnw clean install -DskipTests=false

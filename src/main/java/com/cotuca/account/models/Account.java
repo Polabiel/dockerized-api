@@ -1,13 +1,21 @@
 package com.cotuca.account.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
 
-@Entity @Table
-@NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString @EqualsAndHashCode
+@Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class Account {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer number;
 
     @Column(nullable = false, length = 100)
@@ -15,5 +23,4 @@ public class Account {
 
     @Column(nullable = false)
     private Double balance;
-
 }
