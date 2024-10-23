@@ -1,9 +1,9 @@
+# .gitpod.yml
 tasks:
   - init: |
       sudo apt-get update --fix-missing
-      sudo apt-get install -y openjdk-21-jdk
+      sudo apt-get install -y openjdk-21-jdk docker-compose
       sudo update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
-      # Definindo JAVA_HOME e adicionando ao PATH
       echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64' >> ~/.bashrc
       echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
       source ~/.bashrc
@@ -12,3 +12,4 @@ tasks:
       export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
       export PATH=$JAVA_HOME/bin:$PATH
       ./mvnw clean install -DskipTests=false
+      docker-compose up --build
