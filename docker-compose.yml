@@ -4,14 +4,23 @@ services:
     image: mysql:latest
     environment:
       MYSQL_DATABASE: account
-      MY_USER: root
       MYSQL_ROOT_PASSWORD: abc123
     ports:
       - 3306:3306
-    expose:
-      - 3306
     networks:
       - account-private-network
+
+  spring-boot-api:
+    container_name: spring-boot-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - account-private-network
+    depends_on:
+      - account-database
 
 networks:
   account-private-network:
