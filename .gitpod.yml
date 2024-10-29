@@ -11,7 +11,6 @@ tasks:
         echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
         source ~/.bashrc
   - command: |
-      # Certifique-se de que o Java 22 está no PATH
       export JAVA_HOME=/usr/lib/jvm/java-23-openjdk-amd64
       export PATH=$JAVA_HOME/bin:$PATH
       chmod +x mvnw
