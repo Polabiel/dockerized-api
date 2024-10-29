@@ -1,12 +1,13 @@
 # gitpod.yml
 tasks:
   - init: |
-      sudo apt-get update --fix-missing
-      sudo apt-get install -y openjdk-22-jdk docker-compose
-      sudo update-alternatives --set java /usr/lib/jvm/java-22-openjdk-amd64/bin/java
-      echo 'export JAVA_HOME=/usr/lib/jvm/java-22-openjdk-amd64' >> ~/.bashrc
-      echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
-      source ~/.bashrc
+        sdk install java 23-zulu
+        sudo apt-get update --fix-missing
+        sudo apt-get install -y openjdk-22-jdk docker-compose
+        sudo update-alternatives --set java /usr/lib/jvm/java-22-openjdk-amd64/bin/java
+        echo 'export JAVA_HOME=/usr/lib/jvm/java-22-openjdk-amd64' >> ~/.bashrc
+        echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+        source ~/.bashrc
   - command: |
       # Certifique-se de que o Java 22 está no PATH
       export JAVA_HOME=/usr/lib/jvm/java-22-openjdk-amd64
