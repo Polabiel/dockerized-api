@@ -1,27 +1,15 @@
 services:
   account-database:
-    container_name: account-db
+    container_name: jupyter
     image: mysql:latest
     environment:
       MYSQL_DATABASE: account
-      MYSQL_USER: root  # Corrigido de MY_USER para MYSQL_USER
+      MY_USER: root
       MYSQL_ROOT_PASSWORD: abc123
     ports:
-      - "3306:3306"
+      - 3306:3306
     expose:
-      - "3306"
-    networks:
-      - account-private-network
-
-  account-app:
-    container_name: account-app
-    build:
-      context: .  # Diretório onde está o Dockerfile
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    depends_on:
-      - account-database  # A aplicação depende do banco de dados
+      - 3306
     networks:
       - account-private-network
 
