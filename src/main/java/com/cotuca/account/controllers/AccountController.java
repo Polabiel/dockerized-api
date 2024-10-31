@@ -4,7 +4,6 @@ import com.cotuca.account.models.Account;
 import com.cotuca.account.models.Transaction;
 import com.cotuca.account.repositories.AccountRepository;
 import com.cotuca.account.repositories.TransactionRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +15,14 @@ import java.util.List;
 @RequestMapping("/accounts")
 public class AccountController {
 
-    @Autowired
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
+    private final TransactionRepository transactionRepository;
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    public AccountController(AccountRepository accountRepository, TransactionRepository transactionRepository) {
+        this.accountRepository = accountRepository;
+        this.transactionRepository = transactionRepository;
+    }
 
     @GetMapping
     public ResponseEntity<List<Account>> getAccounts() {
@@ -46,15 +48,13 @@ public class AccountController {
     @PutMapping("/{number}")
     public ResponseEntity<Account> updateAccount(@PathVariable Integer number, @RequestBody Account account) {
         return accountRepository.findById(number)
-                .map(__account -> {
-                    __account.setNumber(account.getNumber());
-                    __account.setOwner(account.getOwner());
-                    __account.setBalance(account.getBalance());
-                    return ResponseEntity.ok(accountRepository.save(__account));
+                .map(existingAccount -> {
+                    existingAccount.setNumber(account.getNumber());
+                    existingAccount.setOwner(account.getOwner());
+                    existingAccount.setBalance(account.getBalance());
+                    return ResponseEntity.ok(accountRepository.save(existingAccount));
                 })
-                .orElseGet(() -> {
-                    return ResponseEntity.status(HttpStatus.CREATED).body(accountRepository.save(account));
-                });
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.CREATED).body(accountRepository.save(account)));
     }
 
     @GetMapping("/{number}/transactions")
